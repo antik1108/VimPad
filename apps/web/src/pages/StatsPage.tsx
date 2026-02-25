@@ -23,16 +23,30 @@ export default function StatsPage() {
 
   const habitGrid = useMemo(() => {
     const totalDays = 52 * 7;
+    const daysWithCompletion = new Set<string>();
+
+    for (const task of tasks) {
+      if (!task.completedAt) continue;
+      const done = new Date(task.completedAt);
+      done.setHours(0, 0, 0, 0);
+      const key = done.toISOString().slice(0, 10);
+      daysWithCompletion.add(key);
+    }
+
+    const start = new Date();
+    start.setHours(0, 0, 0, 0);
+    start.setDate(start.getDate() - (totalDays - 1));
+
     const grid: number[] = [];
     for (let i = 0; i < totalDays; i++) {
-      grid.push(Math.floor(Math.random() * 5));
+      const day = new Date(start);
+      day.setDate(start.getDate() + i);
+      const key = day.toISOString().slice(0, 10);
+      grid.push(daysWithCompletion.has(key) ? 4 : 0);
     }
-    const recentRate = stats.rate / 25;
-    for (let i = totalDays - 7; i < totalDays; i++) {
-      grid[i] = Math.min(4, Math.floor(recentRate + Math.random() * 2));
-    }
+
     return grid;
-  }, [stats.rate]);
+  }, [tasks]);
 
   const categoryDist = useMemo(() => {
     const total = stats.high + stats.med + stats.low;
