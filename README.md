@@ -14,6 +14,7 @@ VimPad is a Vim-inspired productivity app with **real authentication** and **per
 Every user gets an isolated workspace (tasks, notes, history, config) powered by Supabase Auth + Postgres + RLS.
 
 [Getting Started](#getting-started) •
+[Supabase Docs](docs/supabase-documentation.md) •
 [Supabase Setup](#supabase-setup-required) •
 [OAuth Setup](#oauth-setup-googlegithubgitlab) •
 [Deploy](#deploy-production) •
