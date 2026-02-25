@@ -1,5 +1,7 @@
 <hr />
 
+<div align="center">
+
 # VimPad
 
 [![Monorepo](https://img.shields.io/badge/monorepo-npm%20workspaces-0f172a?style=flat-square)](https://docs.npmjs.com/cli/v11/using-npm/workspaces)
@@ -16,6 +18,8 @@ Every user gets an isolated workspace (tasks, notes, history, config) powered by
 [OAuth Setup](#oauth-setup-googlegithubgitlab) •
 [Deploy](#deploy-production) •
 [Troubleshooting](#troubleshooting)
+
+</div>
 
 ## Features
 
