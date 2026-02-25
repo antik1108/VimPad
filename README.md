@@ -33,31 +33,31 @@ Every user gets an isolated workspace (tasks, notes, history, config) powered by
 
 ### Startup / Splash
 
-![VimPad Splash](apps/web/public/screenshots/splash.jpg)
+<img src="apps/web/public/screenshots/splash.jpg" alt="VimPad Splash" width="180" />
 
 ### Login Prompt + Quick OAuth
 
-![VimPad Login](apps/web/public/screenshots/login.jpg)
+<img src="apps/web/public/screenshots/login.jpg" alt="VimPad Login" width="180" />
 
 ### Editor (Task Buffer)
 
-![VimPad Editor](apps/web/public/screenshots/editor.jpg)
+<img src="apps/web/public/screenshots/editor.jpg" alt="VimPad Editor" width="180" />
 
 ### Notes Workspace
 
-![VimPad Notes](apps/web/public/screenshots/notes.jpg)
+<img src="apps/web/public/screenshots/notes.jpg" alt="VimPad Notes" width="180" />
 
 ### Stats (GitHub-style Habit Heatmap)
 
-![VimPad Stats](apps/web/public/screenshots/stats.jpg)
+<img src="apps/web/public/screenshots/stats.jpg" alt="VimPad Stats" width="180" />
 
 ### Commit-like History
 
-![VimPad History](apps/web/public/screenshots/history.jpg)
+<img src="apps/web/public/screenshots/history.jpg" alt="VimPad History" width="180" />
 
 ### Vim-style Config
 
-![VimPad Config](apps/web/public/screenshots/config.jpg)
+<img src="apps/web/public/screenshots/config.jpg" alt="VimPad Config" width="180" />
 
 ## Workspace Structure
 
