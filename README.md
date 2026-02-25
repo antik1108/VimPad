@@ -29,6 +29,36 @@ Every user gets an isolated workspace (tasks, notes, history, config) powered by
 - Monorepo structure with workspace scripts
 - Vercel SPA refresh support via rewrite config
 
+## Screenshots
+
+### Startup / Splash
+
+![VimPad Splash](apps/web/public/screenshots/splash.jpg)
+
+### Login Prompt + Quick OAuth
+
+![VimPad Login](apps/web/public/screenshots/login.jpg)
+
+### Editor (Task Buffer)
+
+![VimPad Editor](apps/web/public/screenshots/editor.jpg)
+
+### Notes Workspace
+
+![VimPad Notes](apps/web/public/screenshots/notes.jpg)
+
+### Stats (GitHub-style Habit Heatmap)
+
+![VimPad Stats](apps/web/public/screenshots/stats.jpg)
+
+### Commit-like History
+
+![VimPad History](apps/web/public/screenshots/history.jpg)
+
+### Vim-style Config
+
+![VimPad Config](apps/web/public/screenshots/config.jpg)
+
 ## Workspace Structure
 
 ```text
@@ -37,7 +67,7 @@ Every user gets an isolated workspace (tasks, notes, history, config) powered by
 │  └─ web/
 │     ├─ src/
 │     ├─ supabase/
-│     │  ├─ schema.sql
+│     │  ├─ schema.postgres.sql
 │     │  └─ config.toml
 │     ├─ .env.example
 │     └─ vercel.json
@@ -82,7 +112,7 @@ Use the same values in your hosting provider environment settings.
 ## Supabase Setup (Required)
 
 1. Create a Supabase project.
-2. Open SQL Editor and run [apps/web/supabase/schema.sql](apps/web/supabase/schema.sql).
+2. Open SQL Editor and run [apps/web/supabase/schema.postgres.sql](apps/web/supabase/schema.postgres.sql).
 3. In Supabase Auth:
 	 - Enable Email/Password provider.
 	 - Configure email confirmation policy if needed.
@@ -195,7 +225,7 @@ All reads/writes are scoped by `user_id = auth.uid()`.
 - Auth context: [apps/web/src/context/AuthContext.tsx](apps/web/src/context/AuthContext.tsx)
 - Supabase client: [apps/web/src/lib/supabaseClient.ts](apps/web/src/lib/supabaseClient.ts)
 - Store/data layer: [apps/web/src/lib/store.ts](apps/web/src/lib/store.ts)
-- DB schema: [apps/web/supabase/schema.sql](apps/web/supabase/schema.sql)
+- DB schema: [apps/web/supabase/schema.postgres.sql](apps/web/supabase/schema.postgres.sql)
 
 ---
 

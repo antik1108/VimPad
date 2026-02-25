@@ -1,7 +1,14 @@
 import AppLayout from "@/components/AppLayout";
 import StatusBar from "@/components/StatusBar";
-import { useStore } from "@/lib/store";
+import { useStore } from "../lib/store";
 import { useMemo } from "react";
+
+const toLocalDateKey = (value: Date) => {
+  const year = value.getFullYear();
+  const month = String(value.getMonth() + 1).padStart(2, "0");
+  const day = String(value.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
 
 export default function StatsPage() {
   const { tasks } = useStore();
@@ -23,29 +30,67 @@ export default function StatsPage() {
 
   const habitGrid = useMemo(() => {
     const totalDays = 52 * 7;
-    const daysWithCompletion = new Set<string>();
+    const dailyCompletions = new Map<string, number>();
 
     for (const task of tasks) {
       if (!task.completedAt) continue;
       const done = new Date(task.completedAt);
       done.setHours(0, 0, 0, 0);
-      const key = done.toISOString().slice(0, 10);
-      daysWithCompletion.add(key);
+      const key = toLocalDateKey(done);
+      dailyCompletions.set(key, (dailyCompletions.get(key) ?? 0) + 1);
     }
+
+    const maxDailyCompletions = Math.max(0, ...dailyCompletions.values());
 
     const start = new Date();
     start.setHours(0, 0, 0, 0);
     start.setDate(start.getDate() - (totalDays - 1));
 
-    const grid: number[] = [];
+    const grid: { dateKey: string; count: number; level: number }[] = [];
     for (let i = 0; i < totalDays; i++) {
       const day = new Date(start);
       day.setDate(start.getDate() + i);
-      const key = day.toISOString().slice(0, 10);
-      grid.push(daysWithCompletion.has(key) ? 4 : 0);
+      const key = toLocalDateKey(day);
+      const count = dailyCompletions.get(key) ?? 0;
+
+      const level =
+        count === 0
+          ? 0
+          : maxDailyCompletions <= 4
+            ? Math.min(4, count)
+            : Math.min(4, Math.ceil((count / maxDailyCompletions) * 4));
+
+      grid.push({ dateKey: key, count, level });
     }
 
-    return grid;
+    const monthLabels: string[] = [];
+    for (let week = 0; week < totalDays / 7; week++) {
+      const weekStart = new Date(start);
+      weekStart.setDate(start.getDate() + week * 7);
+      if (weekStart.getDate() <= 7) {
+        monthLabels.push(
+          weekStart.toLocaleString("default", {
+            month: "short",
+          }),
+        );
+      }
+    }
+
+    const end = new Date(start);
+    end.setDate(start.getDate() + totalDays - 1);
+    const yearLabel =
+      start.getFullYear() === end.getFullYear()
+        ? String(end.getFullYear())
+        : `${start.getFullYear()}-${end.getFullYear()}`;
+
+    const totalCompletedInGrid = grid.reduce((sum, cell) => sum + cell.count, 0);
+
+    return {
+      cells: grid,
+      monthLabels,
+      yearLabel,
+      totalCompletedInGrid,
+    };
   }, [tasks]);
 
   const categoryDist = useMemo(() => {
@@ -95,14 +140,42 @@ export default function StatsPage() {
             <span className="text-syntax-yellow font-bold text-sm">#</span>
             <h2 className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">HABIT_STREAKS</h2>
           </div>
-          <div className="ascii-grid">
-            {habitGrid.map((level, i) => {
-              const colors = ["bg-habit-0", "bg-habit-1", "bg-habit-2", "bg-habit-3", "bg-habit-4"];
-              return <div key={i} className={`w-[10px] h-[10px] rounded-sm ${colors[level]}`} />;
-            })}
+          <div className="flex items-center justify-between mb-2.5 text-[11px] text-muted-foreground">
+            <span>{habitGrid.totalCompletedInGrid} completed tasks in last 52 weeks</span>
+            <span>{habitGrid.yearLabel}</span>
           </div>
+
+          <div className="flex gap-2.5">
+            <div className="pt-5 text-[10px] text-muted-foreground min-w-8 space-y-[15px]">
+              <div>Mon</div>
+              <div>Wed</div>
+              <div>Fri</div>
+            </div>
+
+            <div className="min-w-0 flex-1">
+              <div className="flex justify-between mb-2 text-[11px] text-muted-foreground">
+                {habitGrid.monthLabels.map((month, index) => (
+                  <span key={`${month}-${index}`}>{month}</span>
+                ))}
+              </div>
+
+              <div className="ascii-grid">
+                {habitGrid.cells.map((cell, index) => {
+                  const colors = ["bg-habit-0", "bg-habit-1", "bg-habit-2", "bg-habit-3", "bg-habit-4"];
+                  return (
+                    <div
+                      key={`${cell.dateKey}-${index}`}
+                      className={`w-[10px] h-[10px] rounded-sm ${colors[cell.level]}`}
+                      title={`${cell.count} task${cell.count === 1 ? "" : "s"} completed on ${cell.dateKey}`}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
           <div className="flex justify-between mt-2.5 text-[11px] text-muted-foreground">
-            <span>Recent</span>
+            <span>Last 52 weeks</span>
             <div className="flex items-center gap-1.5">
               <span>Less</span>
               <div className="w-2.5 h-2.5 rounded-sm bg-habit-0" />
