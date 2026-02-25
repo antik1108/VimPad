@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import AppLayout from "@/components/AppLayout";
 import StatusBar from "@/components/StatusBar";
@@ -7,11 +7,29 @@ import { useStore } from "@/lib/store";
 export default function NoteDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { notes, updateNote, deleteNote, addImageToNote, removeImageFromNote } = useStore();
+  const { notes, config, updateNote, deleteNote, addImageToNote, removeImageFromNote } = useStore();
   const note = notes.find((n) => n.id === id);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const saveTimeoutRef = useRef<number | null>(null);
   const [showUrlInput, setShowUrlInput] = useState(false);
   const [urlValue, setUrlValue] = useState("");
+  const [draftContent, setDraftContent] = useState("");
+
+  useEffect(() => {
+    setDraftContent(note?.content ?? "");
+    if (saveTimeoutRef.current !== null) {
+      window.clearTimeout(saveTimeoutRef.current);
+      saveTimeoutRef.current = null;
+    }
+  }, [note?.id]);
+
+  useEffect(() => {
+    return () => {
+      if (saveTimeoutRef.current !== null) {
+        window.clearTimeout(saveTimeoutRef.current);
+      }
+    };
+  }, []);
 
   if (!note) {
     return (
@@ -40,6 +58,32 @@ export default function NoteDetailPage() {
       addImageToNote(id, urlValue.trim());
       setUrlValue("");
       setShowUrlInput(false);
+    }
+  };
+
+  const queueSave = (content: string) => {
+    if (!note || !config.autoSave) return;
+
+    if (saveTimeoutRef.current !== null) {
+      window.clearTimeout(saveTimeoutRef.current);
+    }
+
+    saveTimeoutRef.current = window.setTimeout(() => {
+      void updateNote(note.id, content);
+      saveTimeoutRef.current = null;
+    }, 600);
+  };
+
+  const flushSave = () => {
+    if (!note) return;
+
+    if (saveTimeoutRef.current !== null) {
+      window.clearTimeout(saveTimeoutRef.current);
+      saveTimeoutRef.current = null;
+    }
+
+    if (draftContent !== note.content) {
+      void updateNote(note.id, draftContent);
     }
   };
 
@@ -105,8 +149,13 @@ export default function NoteDetailPage() {
 
       <main className="flex-1 overflow-y-auto px-5 pt-4 pb-36 scrollbar-hide space-y-4">
         <textarea
-          value={note.content}
-          onChange={(e) => updateNote(note.id, e.target.value)}
+          value={draftContent}
+          onChange={(e) => {
+            const nextContent = e.target.value;
+            setDraftContent(nextContent);
+            queueSave(nextContent);
+          }}
+          onBlur={flushSave}
           className="bg-transparent border-none outline-none w-full text-[13px] text-foreground resize-none font-mono leading-loose min-h-[240px]"
           placeholder="Start writing..."
         />

@@ -288,18 +288,13 @@ export function useStore() {
     async (id: string, content: string) => {
       if (!user) return;
 
-      const { data } = await supabase
+      setNotes((prev) => prev.map((note) => (note.id === id ? { ...note, content } : note)));
+
+      await supabase
         .from("notes")
         .update({ content })
         .eq("id", id)
-        .eq("user_id", user.id)
-        .select("*")
-        .single();
-
-      if (data) {
-        const mapped = toNote(data);
-        setNotes((prev) => prev.map((note) => (note.id === id ? mapped : note)));
-      }
+        .eq("user_id", user.id);
     },
     [user],
   );
