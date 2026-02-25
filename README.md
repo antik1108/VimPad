@@ -31,33 +31,17 @@ Every user gets an isolated workspace (tasks, notes, history, config) powered by
 
 ## Screenshots
 
-### Startup / Splash
-
-<img src="apps/web/public/screenshots/splash.jpg" alt="VimPad Splash" width="180" />
-
-### Login Prompt + Quick OAuth
-
-<img src="apps/web/public/screenshots/login.jpg" alt="VimPad Login" width="180" />
-
-### Editor (Task Buffer)
-
-<img src="apps/web/public/screenshots/editor.jpg" alt="VimPad Editor" width="180" />
-
-### Notes Workspace
-
-<img src="apps/web/public/screenshots/notes.jpg" alt="VimPad Notes" width="180" />
-
-### Stats (GitHub-style Habit Heatmap)
-
-<img src="apps/web/public/screenshots/stats.jpg" alt="VimPad Stats" width="180" />
-
-### Commit-like History
-
-<img src="apps/web/public/screenshots/history.jpg" alt="VimPad History" width="180" />
-
-### Vim-style Config
-
-<img src="apps/web/public/screenshots/config.jpg" alt="VimPad Config" width="180" />
+<p align="center">
+	<img src="apps/web/public/screenshots/splash.jpg" alt="screenshot-1" width="150" />
+	<img src="apps/web/public/screenshots/login.jpg" alt="screenshot-2" width="150" />
+	<img src="apps/web/public/screenshots/editor.jpg" alt="screenshot-3" width="150" />
+</p>
+<p align="center">
+	<img src="apps/web/public/screenshots/notes.jpg" alt="screenshot-4" width="150" />
+	<img src="apps/web/public/screenshots/stats.jpg" alt="screenshot-5" width="150" />
+	<img src="apps/web/public/screenshots/history.jpg" alt="screenshot-6" width="150" />
+	<img src="apps/web/public/screenshots/config.jpg" alt="screenshot-7" width="150" />
+</p>
 
 ## Workspace Structure
 
