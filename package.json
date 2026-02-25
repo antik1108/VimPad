@@ -1,0 +1,25 @@
+{
+  "name": "vimpad-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @vimpad/web",
+    "build": "npm run build --workspace @vimpad/web",
+    "build:dev": "npm run build:dev --workspace @vimpad/web",
+    "lint": "npm run lint --workspace @vimpad/web",
+    "test": "npm run test --workspace @vimpad/web",
+    "test:watch": "npm run test:watch --workspace @vimpad/web",
+    "preview": "npm run preview --workspace @vimpad/web",
+    "db:login": "npm exec supabase -- login",
+    "db:link": "npm exec supabase -- link --project-ref iohesxutnjgsieetuece --workdir apps/web",
+    "db:push": "npm exec supabase -- db push --workdir apps/web",
+    "db:pull": "npm exec supabase -- db pull --workdir apps/web",
+    "db:status": "npm exec supabase -- migration list --workdir apps/web"
+  },
+  "devDependencies": {
+    "supabase": "^2.76.14"
+  }
+}

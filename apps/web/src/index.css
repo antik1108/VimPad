@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 215 28% 5%;
+    --foreground: 210 40% 96%;
+    --card: 215 28% 5%;
+    --card-foreground: 210 40% 96%;
+    --popover: 215 28% 5%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 215 20% 10%;
+    --secondary-foreground: 210 40% 96%;
+    --muted: 215 20% 12%;
+    --muted-foreground: 215 20% 55%;
+    --accent: 215 20% 10%;
+    --accent-foreground: 210 40% 96%;
+    --destructive: 0 100% 67%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 215 20% 14%;
+    --input: 215 20% 14%;
+    --ring: 217 91% 60%;
+    --radius: 0.125rem;
+
+    /* Glow */
+    --glow-color: 217 91% 60%;
+
+    /* Syntax colors */
+    --syntax-red: 0 100% 67%;
+    --syntax-yellow: 65 93% 72%;
+    --syntax-green: 135 94% 65%;
+    --syntax-gray: 215 20% 55%;
+    --syntax-purple: 265 89% 78%;
+    --syntax-cyan: 191 95% 77%;
+
+    /* Habit grid colors */
+    --habit-0: 215 17% 8%;
+    --habit-1: 145 66% 15%;
+    --habit-2: 150 100% 20%;
+    --habit-3: 135 60% 45%;
+    --habit-4: 130 70% 55%;
+
+    /* Surface */
+    --surface: 215 28% 5%;
+
+    --sidebar-background: 215 28% 5%;
+    --sidebar-foreground: 210 40% 96%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 215 20% 10%;
+    --sidebar-accent-foreground: 210 40% 96%;
+    --sidebar-border: 215 20% 14%;
+    --sidebar-ring: 217 91% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-mono antialiased;
+    font-feature-settings: "liga" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Cursor blink animation */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+/* Material Symbols fill */
+.fill-1 {
+  font-variation-settings: 'FILL' 1;
+}
+
+.vim-caret-bold {
+  caret-color: hsl(var(--primary));
+  caret-shape: block;
+}
+
+/* ASCII grid for habit streaks — yearly view (7 rows × 52 cols) */
+.ascii-grid {
+  display: grid;
+  grid-template-rows: repeat(7, 10px);
+  grid-auto-flow: column;
+  grid-auto-columns: 10px;
+  gap: 3px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+/* Line numbers */
+.line-number {
+  color: hsl(var(--syntax-gray));
+  min-width: 2.5rem;
+  text-align: right;
+  padding-right: 1rem;
+  user-select: none;
+}
