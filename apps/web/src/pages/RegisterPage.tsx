@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabaseClient";
 import { useAuth } from "@/context/AuthContext";
+import type { Provider } from "@supabase/supabase-js";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -44,6 +45,19 @@ export default function RegisterPage() {
 
     toast.success("Account created. Check your email if confirmation is enabled.");
     navigate("/editor");
+  };
+
+  const handleOAuth = async (provider: Provider) => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: `${window.location.origin}/editor`,
+      },
+    });
+
+    if (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -143,6 +157,7 @@ export default function RegisterPage() {
             {["github", "google", "gitlab"].map((provider) => (
               <button
                 key={provider}
+                onClick={() => handleOAuth(provider as Provider)}
                 className="w-full rounded py-1.5 text-left text-xs text-muted-foreground transition-colors duration-200 hover:bg-secondary hover:text-primary"
               >
                 [ {provider} ]

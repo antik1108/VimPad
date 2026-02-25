@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabaseClient";
 import { useAuth } from "@/context/AuthContext";
+import type { Provider } from "@supabase/supabase-js";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -35,6 +36,19 @@ export default function LoginPage() {
 
     toast.success("Logged in successfully");
     navigate("/editor");
+  };
+
+  const handleOAuth = async (provider: Provider) => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: `${window.location.origin}/editor`,
+      },
+    });
+
+    if (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -123,6 +137,7 @@ export default function LoginPage() {
             {["github", "google", "gitlab"].map((provider) => (
               <button
                 key={provider}
+                onClick={() => handleOAuth(provider as Provider)}
                 className="group flex w-full items-center justify-start gap-2 rounded border border-transparent px-3 py-2 text-xs text-muted-foreground transition-all duration-300 hover:border-primary/40 hover:bg-primary/5 hover:text-primary"
               >
                 <span className="opacity-50 transition-opacity group-hover:opacity-100">[</span>

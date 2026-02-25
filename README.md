@@ -29,6 +29,21 @@ npm run dev
 	- Enable Email/Password provider.
 	- Configure email confirmation policy (optional, based on your product needs).
 
+## OAuth Setup (Google/GitHub/GitLab)
+
+Use `Authentication -> Sign In / Providers` (not `OAuth Server`).
+
+1. Enable the provider(s) you want: Google, GitHub, GitLab.
+2. Add your app URL in `Authentication -> URL Configuration`:
+	- Site URL: your production URL (example `https://vimpad-cloud.vercel.app`)
+	- Additional Redirect URLs:
+	  - `http://localhost:8080/editor`
+	  - `https://vimpad-cloud.vercel.app/editor`
+3. In each provider console, set callback URL to your Supabase callback endpoint:
+	- `https://iohesxutnjgsieetuece.supabase.co/auth/v1/callback`
+
+Quick auth buttons in [apps/web/src/pages/LoginPage.tsx](apps/web/src/pages/LoginPage.tsx) and [apps/web/src/pages/RegisterPage.tsx](apps/web/src/pages/RegisterPage.tsx) are wired to `signInWithOAuth`.
+
 ## Environment Variables
 
 Copy [apps/web/.env.example](apps/web/.env.example) to `apps/web/.env` and fill values:
