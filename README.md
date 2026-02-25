@@ -32,15 +32,14 @@ Every user gets an isolated workspace (tasks, notes, history, config) powered by
 ## Screenshots
 
 <p align="center">
-	<a href="apps/web/public/screenshots/editor.jpg"><img src="apps/web/public/screenshots/editor.jpg" alt="screenshot-1" width="145" /></a>
-	<a href="apps/web/public/screenshots/notes.jpg"><img src="apps/web/public/screenshots/notes.jpg" alt="screenshot-2" width="145" /></a>
-	<a href="apps/web/public/screenshots/stats.jpg"><img src="apps/web/public/screenshots/stats.jpg" alt="screenshot-3" width="145" /></a>
-	<a href="apps/web/public/screenshots/history.jpg"><img src="apps/web/public/screenshots/history.jpg" alt="screenshot-4" width="145" /></a>
-	<a href="apps/web/public/screenshots/login.jpg"><img src="apps/web/public/screenshots/login.jpg" alt="screenshot-5" width="145" /></a>
-	<a href="apps/web/public/screenshots/splash.jpg"><img src="apps/web/public/screenshots/splash.jpg" alt="screenshot-6" width="145" /></a>
+	<a href="apps/web/public/screenshots/config.jpg"><img src="apps/web/public/screenshots/config.jpg" alt="screenshot-1" width="165" /></a>
+	<a href="apps/web/public/screenshots/history.jpg"><img src="apps/web/public/screenshots/history.jpg" alt="screenshot-2" width="165" /></a>
+	<a href="apps/web/public/screenshots/splash.jpg"><img src="apps/web/public/screenshots/splash.jpg" alt="screenshot-3" width="165" /></a>
 </p>
-<p align="center" style="margin-top: 12px;">
-	<a href="apps/web/public/screenshots/config.jpg"><img src="apps/web/public/screenshots/config.jpg" alt="screenshot-7" width="170" /></a>
+<p align="center">
+	<a href="apps/web/public/screenshots/editor.jpg"><img src="apps/web/public/screenshots/editor.jpg" alt="screenshot-4" width="165" /></a>
+	<a href="apps/web/public/screenshots/login.jpg"><img src="apps/web/public/screenshots/login.jpg" alt="screenshot-5" width="165" /></a>
+	<a href="apps/web/public/screenshots/notes.jpg"><img src="apps/web/public/screenshots/notes.jpg" alt="screenshot-6" width="165" /></a>
 </p>
 
 ## Workspace Structure
