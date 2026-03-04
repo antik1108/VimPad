@@ -11,6 +11,8 @@
 
 VimPad is a Vim-inspired productivity app with **real authentication** and **per-user cloud data**.
 
+> **Note:** Currently, VimPad is a web application, but in the future, we plan to release it as a real CLI application for use directly in the terminal!
+
 Every user gets an isolated workspace (tasks, notes, history, config) powered by Supabase Auth + Postgres + RLS.
 
 [Getting Started](#getting-started) •
